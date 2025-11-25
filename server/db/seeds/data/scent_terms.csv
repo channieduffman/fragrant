@@ -1,0 +1,81 @@
+term_id,name,level,parent_id
+1,Aldehydic,Family,
+2,Amber,Accord,57
+3,Ambergris,Note,51
+4,Ambroxan,Note,51
+5,Animalic,Accord,
+6,Aquatic,Family,
+7,Aromatic,Family,
+8,Attar,Family,
+9,Bakhoor,Note,69
+10,Barnyard,Accord,5
+11,Basil,Note,7
+12,Bergamot,Note,19
+13,Blackberry,Note,
+14,Calone,Note,6
+15,Cardamom,Note,7
+16,Castoreum,Note,5
+17,Cedar,Note,79
+18,Chypre,Family,
+19,Citrus,Family,
+20,Civet,Note,5
+21,Clary Sage,Note,7
+22,Clove,Note,
+23,Coriander,Note,7
+24,Costus,Note,5
+25,Fougère,Family,
+26,Frankincense,Note,69
+27,Freesia,Note,77
+28,Galaxolide,Note,51
+29,Galbanum,Note,
+30,Geranium,Note,7
+31,Ginger,Note,
+32,Gourmand,Family,
+33,Grapefruit,Note,19
+34,Hedione,Note,77
+35,Hindi Oud,Note,58
+36,Honey,Note,32
+37,Hyacinth,Note,77
+38,Iris,Note,65
+39,Jasmine,Note,77
+40,Lactonic,Accord,32
+41,Leather,Accord,5
+42,Lemon,Note,19
+43,Lily-of-the-Valley,Note,77
+44,Magnolia,Note,77
+45,Mandarin,Note,19
+46,Masculine,Note,25
+47,Melon,Note,6
+48,Mint,Note,7
+49,Monsoon,Accord,6
+50,Moss,Note,18
+51,Musk,Note,
+52,Myrrh,Note,57
+53,Neroli,Note,55
+54,Oakmoss,Note,18
+55,Orange Blossom,Note,77
+56,Orchid,Note,
+57,Oriental,Family,
+58,Oud,Note,79
+59,Ozonice,Accord,6
+60,Patchouli,Note,18
+61,Peach,Note,
+62,Pear,Note,
+63,Petitgrain,Note,19
+64,Pink Pepper,Note,
+65,Powdery,Accord,
+66,Rose,Note,77
+67,Saffron,Note,
+68,Sandalwood,Note,79
+69,Smoky,Accord,79
+70,Solar,Accord,
+71,Tobacco,Note,79
+72,Tonka Bean,Note,25
+73,Tuberose,Note,77
+74,Vanilla,Note,32
+75,Vetiver,Note,79
+76,Violet,Note,65
+77,White Floral,Accord,
+78,White Pepper,Note,
+79,Woody,Family,
+80,Ylang-Ylang,Note,77
