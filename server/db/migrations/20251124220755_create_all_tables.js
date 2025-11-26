@@ -10,7 +10,8 @@ exports.up = function (knex) {
             table.string('brand', 255).notNullable();
             table.integer('year_released').unsigned();
             table.string('description', 511);
-            table.enum('gender', ['M', 'F', 'U']).notNullable();
+            table.enum('gender_focus', ['M', 'F', 'U']).notNullable();
+            table.string('image_url', 255);
 
             table.timestamps(true, true);
             table.unique(['name', 'brand']);

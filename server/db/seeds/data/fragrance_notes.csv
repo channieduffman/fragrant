@@ -29,9 +29,6 @@ fragrance_id,term_id,note_type
 4,15,Middle
 4,31,Middle
 4,55,Middle
-4,15,Middle
-4,31,Middle
-4,55,Middle
 4,2,Base
 4,71,Base
 4,17,Base
@@ -119,7 +116,6 @@ fragrance_id,term_id,note_type
 14,51,Base
 14,3,Base
 14,74,Base
-15,33,Top
 15,42,Top
 15,48,Top
 15,64,Top
@@ -247,7 +243,6 @@ fragrance_id,term_id,note_type
 32,42,Top
 32,17,Top
 32,39,Middle
-32,17,Base
 32,51,Base
 32,2,Base
 33,27,Top
