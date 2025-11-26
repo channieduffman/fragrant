@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model fragrance_notes {
+  fragrance_id  Int
+  scent_term_id Int
+  note_type     String
+  fragrances    fragrances  @relation(fields: [fragrance_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fragrance_notes_fragrance_id_foreign")
+  scent_terms   scent_terms @relation(fields: [scent_term_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fragrance_notes_scent_term_id_foreign")
+
+  @@id([fragrance_id, scent_term_id])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model fragrances {
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar(255)
+  brand           String            @db.VarChar(255)
+  year_released   Int?
+  description     String?           @db.VarChar(511)
+  gender_focus    String
+  image_url       String?           @db.VarChar(255)
+  created_at      DateTime          @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime          @default(now()) @db.Timestamptz(6)
+  fragrance_notes fragrance_notes[]
+
+  @@unique([name, brand], map: "fragrances_name_brand_unique")
+}
+
+model knex_migrations {
+  id             Int       @id @default(autoincrement())
+  name           String?   @db.VarChar(255)
+  batch          Int?
+  migration_time DateTime? @db.Timestamptz(6)
+}
+
+model knex_migrations_lock {
+  index     Int  @id @default(autoincrement())
+  is_locked Int?
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model scent_terms {
+  id                Int               @id @default(autoincrement())
+  term              String            @unique(map: "scent_terms_term_unique") @db.VarChar(255)
+  level             String
+  parent_id         Int?
+  created_at        DateTime          @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime          @default(now()) @db.Timestamptz(6)
+  fragrance_notes   fragrance_notes[]
+  scent_terms       scent_terms?      @relation("scent_termsToscent_terms", fields: [parent_id], references: [id], onUpdate: NoAction, map: "scent_terms_parent_id_foreign")
+  other_scent_terms scent_terms[]     @relation("scent_termsToscent_terms")
+}
