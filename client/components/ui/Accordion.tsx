@@ -11,8 +11,8 @@ export default function Accordion(props: AccordionProps) {
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
     const toggleExpand = (item: string) => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setIsExpanded(!isExpanded);
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         console.log('Pressed', item);
     }
 
@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     },
     selectedAccordionItem: {
         padding: 10,
-        margin: 5,
         borderWidth: 1,
         borderRadius: 24,
         borderColor: "#444",
@@ -72,11 +71,10 @@ const styles = StyleSheet.create({
     listSection: {
         marginTop: 10,
         marginBottom: 20,
+        borderRadius: 8,
+        borderWidth: 2,
         padding: 5,
         height: 200,
         maxHeight: 200,
-        borderWidth: 1,
-        borderColor: 'grey',
-        borderRadius: 8,
     }
 });

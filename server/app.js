@@ -7,6 +7,7 @@ import { getAllFragrances } from './routes/getAllFragrances.js';
 import { getFamilyTerms } from './routes/getFamilyTerms.js';
 import { getAccordTerms } from './routes/getAccordTerms.js';
 import { getNoteTerms } from './routes/getNoteTerms.js';
+import { getTerms } from './routes/getTerms.js';
 
 const app = express();
 const port = 3000;
@@ -17,9 +18,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/fragrances/', getAllFragrances);
 
-app.get('/api/fragrances/get-families', getFamilyTerms);
-app.get('/api/fragrances/get-accords', getAccordTerms);
-app.get('/api/fragrances/get-notes', getNoteTerms);
+app.get('/api/fragrances/get-terms/:level', getTerms);
 
 app.get('/api/fragrances/search', searchFragrancesByNotesAll);
 

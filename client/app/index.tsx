@@ -8,6 +8,7 @@ export default function Index() {
 
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<any>();
+
   const [families, setFamilies] = useState<string[]>([]);
   const [accords, setAccords] = useState<string[]>([]);
   const [notes, setNotes] = useState<string[]>([]);
@@ -17,7 +18,7 @@ export default function Index() {
       setError(null);
       setLoading(true);
 
-      const response = await fetch('http://100.64.34.31:3000/api/fragrances/get-families/');
+      const response = await fetch('http://100.64.34.31:3000/api/fragrances/get-terms/Family');
       const json = await response.json();
       setFamilies(json);
     } catch (err: unknown) {
@@ -35,7 +36,7 @@ export default function Index() {
       setError(null);
       setLoading(true);
 
-      const response = await fetch('http://100.64.34.31:3000/api/fragrances/get-accords/');
+      const response = await fetch('http://100.64.34.31:3000/api/fragrances/get-terms/Accord');
       const json = await response.json();
       setAccords(json);
     } catch (err: unknown) {
@@ -53,7 +54,7 @@ export default function Index() {
       setError(null);
       setLoading(true);
 
-      const response = await fetch('http://100.64.34.31:3000/api/fragrances/get-notes/');
+      const response = await fetch('http://100.64.34.31:3000/api/fragrances/get-terms/Note');
       const json = await response.json();
       setNotes(json);
     } catch (err: unknown) {
@@ -73,19 +74,20 @@ export default function Index() {
   }, []);
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        padding: 20,
       }}
     >
-      <ScrollView>
+      <ScrollView >
         <Accordion title="Families" vals={families}></Accordion>
         <Accordion title="Accords" vals={accords}></Accordion>
         <Accordion title="Notes" vals={notes}></Accordion>
       </ScrollView>
-    </SafeAreaView >
+    </View >
   );
 }
 

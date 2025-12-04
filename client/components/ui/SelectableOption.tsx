@@ -21,8 +21,8 @@ export function SelectableOption(props: OptionProps) {
 
     return (
         <TouchableOpacity onPress={() => handlePress(props.name)}>
-            <View style={isSelected ? styles.selectedAccordionItem : styles.accordionItem}>
-                <Text style={styles.accordionItemText}>{props.name}</Text>
+            <View style={[styles.accordionItem, isSelected ? styles.selectedAccordionItem : styles.deselectedAccordionItem]}>
+                <Text>{props.name}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -31,23 +31,18 @@ export function SelectableOption(props: OptionProps) {
 
 const styles = StyleSheet.create({
     accordionItem: {
-        padding: 10,
-        margin: 5,
+        flex: 1,
+        padding: 15,
+        margin: 6,
         borderWidth: 1,
         borderRadius: 24,
-        borderColor: '#aaa',
-        backgroundColor: '#aaa',
     },
     selectedAccordionItem: {
-        padding: 10,
-        margin: 5,
-        borderWidth: 1,
-        borderRadius: 24,
-        borderColor: "#444",
-        backgroundColor: "#444",
+        borderColor: "black",
+        backgroundColor: "#e2d5d5ff",
     },
-    accordionItemText: {
-        color: 'white',
+    deselectedAccordionItem: {
+        borderColor: "black",
     },
     listSection: {
         marginTop: 10,
