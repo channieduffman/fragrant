@@ -1,8 +1,8 @@
-// import { prisma } from '../utils/prisma';
-const { prisma } = require('../utils/prisma.ts');
+import { prisma } from '../utils/prisma.js';
+// const { prisma } = require('../utils/prisma.js');
 
 
-const searchFragrancesByNotesAll = async (req, res) => {
+export const searchFragrancesByNotesAll = async (req, res) => {
     const notesString = req.query.notes;
 
     const requiredNotes = notesString.toLowerCase().split(',').map(note => note.trim()).filter(Boolean);
@@ -39,8 +39,4 @@ const searchFragrancesByNotesAll = async (req, res) => {
         console.error('Error during fragrance search:', error);
         res.status(500).json({ error: 'An error occurred.' });
     }
-};
-
-module.exports = {
-    searchFragrancesByNotesAll,
 };
