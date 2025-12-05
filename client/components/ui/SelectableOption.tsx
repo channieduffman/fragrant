@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Text, TouchableOpacity, View, FlatList, StyleSheet, Touchable } from "react-native";
+import { Text, TouchableOpacity, View, FlatList, StyleSheet, Touchable, TouchableWithoutFeedback } from "react-native";
 
 type OptionProps = {
     name: string,
@@ -20,11 +20,11 @@ export function SelectableOption(props: OptionProps) {
     }, []);
 
     return (
-        <TouchableOpacity onPress={() => handlePress(props.name)}>
+        <TouchableWithoutFeedback onPress={() => handlePress(props.name)}>
             <View style={[styles.accordionItem, isSelected ? styles.selectedAccordionItem : styles.deselectedAccordionItem]}>
                 <Text>{props.name}</Text>
             </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
     );
 }
 

@@ -67,6 +67,25 @@ export default function Index() {
     }
   }
 
+
+  // const fetchFragrancesAnd = async () => {
+  //   try {
+  //     setError(null);
+  //     setLoading(true);
+
+  //     const response = await fetch(`http://100.64.34.31:3000/api/fragrances/and?${}`);
+  //     const json = await response.json();
+  //     setNotes(json);
+  //   } catch (err: unknown) {
+  //     if (err instanceof Error) {
+  //       setError(err.message);
+  //       console.error("Error fetching fragrances", err.message);
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+
   useEffect(() => {
     fetchFamilies();
     fetchAccords();
@@ -82,6 +101,9 @@ export default function Index() {
         padding: 20,
       }}
     >
+      <View style={styles.headingContainer}>
+        <Text style={{ textAlign: 'center' }}>Select notes below to search for matching fragrances.</Text>
+      </View>
       <ScrollView >
         <Accordion title="Families" vals={families}></Accordion>
         <Accordion title="Accords" vals={accords}></Accordion>
@@ -92,6 +114,15 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
+  headingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    maxWidth: 320,
+    minHeight: 100,
+    maxHeight: 100,
+    marginBottom: 20,
+  },
   fragranceContainer: {
     padding: 20,
     margin: 5,

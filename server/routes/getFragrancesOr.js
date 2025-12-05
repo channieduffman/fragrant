@@ -1,8 +1,6 @@
 import { prisma } from '../utils/prisma.js';
-// const { prisma } = require('../utils/prisma.js');
 
-
-export const searchFragrancesByNotesAll = async (req, res) => {
+export const getFragrancesOr = async (req, res) => {
     const notesString = req.query.notes;
 
     const requiredNotes = notesString.toLowerCase().split(',').map(note => note.trim()).filter(Boolean);

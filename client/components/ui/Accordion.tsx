@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { ScrollView, Text, TouchableOpacity, View, FlatList, StyleSheet, Animated, LayoutAnimation, TouchableWithoutFeedback } from "react-native";
+import { useState, useEffect, useRef } from "react";
+import { ScrollView, Text, TouchableOpacity, View, FlatList, StyleSheet, Animated, LayoutAnimation, TouchableWithoutFeedback, Easing } from "react-native";
 import { SelectableOption } from "./SelectableOption";
 
 type AccordionProps = {
@@ -10,11 +10,36 @@ type AccordionProps = {
 export default function Accordion(props: AccordionProps) {
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
+    // driver value for aniamtions
+    const animationDriver = useRef(new Animated.Value(0)).current;
+
     const toggleExpand = (item: string) => {
         setIsExpanded(!isExpanded);
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        console.log('Pressed', item);
     }
+
+    useEffect(() => {
+        Animated.timing(animationDriver, {
+            toValue: isExpanded ? 1 : 0,
+            duration: 250,
+            easing: Easing.ease,
+            useNativeDriver: false,
+        }).start();
+    }, [isExpanded]);
+
+    const animatedHeight = animationDriver.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 200],
+    });
+
+    const animatedOpacity = animationDriver.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 100],
+    });
+
+    const animatedMargins = animationDriver.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 10],
+    });
 
     return (
         <View style={styles.container}>
@@ -23,19 +48,30 @@ export default function Accordion(props: AccordionProps) {
                     <Text>{props.title}</Text>
                 </View>
             </TouchableWithoutFeedback>
-            {isExpanded && (
-                <View style={styles.listSection}>
-                    <ScrollView
-                        nestedScrollEnabled={true}
-                        style={{ flexGrow: 0 }}
-                    >
-                        {props.vals.map((item, index) => (
-                            <SelectableOption name={item} />
-                        ))}
-                    </ScrollView>
-                </View>
-            )}
-        </View>
+            <Animated.View
+                style={
+                    [
+                        styles.listSection,
+                        {
+                            height: animatedHeight,
+                            opacity: animatedOpacity,
+                            marginBottom: animatedMargins,
+                            borderRadius: 8,
+                            overflow: 'hidden'
+                        }
+                    ]
+                }
+            >
+                <ScrollView
+                    nestedScrollEnabled={true}
+                    style={{ flexGrow: 0 }}
+                >
+                    {props.vals.map((item, index) => (
+                        <SelectableOption name={item} />
+                    ))}
+                </ScrollView>
+            </Animated.View>
+        </View >
     );
 };
 
@@ -50,31 +86,12 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderColor: 'black',
     },
-    accordionItem: {
-        padding: 10,
-        margin: 5,
-        borderWidth: 1,
-        borderRadius: 24,
-        borderColor: '#aaa',
-        backgroundColor: '#aaa',
-    },
-    selectedAccordionItem: {
-        padding: 10,
-        borderWidth: 1,
-        borderRadius: 24,
-        borderColor: "#444",
-        backgroundColor: "#444",
-    },
-    accordionItemText: {
-        color: 'white',
-    },
     listSection: {
         marginTop: 10,
         marginBottom: 20,
-        borderRadius: 8,
         borderWidth: 2,
-        padding: 5,
-        height: 200,
+        paddingLeft: 5,
+        paddingRight: 5,
         maxHeight: 200,
     }
 });
