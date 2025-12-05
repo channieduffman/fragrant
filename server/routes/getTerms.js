@@ -12,6 +12,7 @@ export const getTerms = async (req, res) => {
             },
         });
         const flat = families.map(f => f.term);
+        console.log(flat);
         res.json(flat);
     } catch (error) {
         console.error(`An error occurred: ${error}`);

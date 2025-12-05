@@ -36,6 +36,7 @@ export const getFragrancesAnd = async (req, res) => {
             },
         });
         const flat = fragrances.map(f => f.name);
+        console.log(flat);
         res.json(flat);
     } catch (error) {
         console.error('Error during fragrance search:', error);
