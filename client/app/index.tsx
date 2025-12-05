@@ -1,5 +1,6 @@
 import Accordion from "@/components/ui/Accordion";
-import { useState, useEffect } from "react";
+import { ScrollableAccordion } from "@/components/ui/ScrollableAccordion";
+import { useState, useEffect, useRef } from "react";
 import { ScrollView, Text, TouchableOpacity, View, FlatList, StyleSheet } from "react-native";
 import { blue } from "react-native-reanimated/lib/typescript/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +13,21 @@ export default function Index() {
   const [families, setFamilies] = useState<string[]>([]);
   const [accords, setAccords] = useState<string[]>([]);
   const [notes, setNotes] = useState<string[]>([]);
+
+  const [selected, setSelected] = useState<string[]>([]);
+
+  const [fragrances, setFragrances] = useState<any[]>([]);
+
+  const handleSelectOption = (option: string) => {
+    setSelected([...selected, option.toLowerCase()]);
+  };
+
+  const handleDeselectOption = (option: string) => {
+    const newSelected = selected.filter(item => item !== option.toLowerCase());
+    setSelected(newSelected);
+  };
+
+  const params = selected.join(',');
 
   const fetchFamilies = async () => {
     try {
@@ -68,29 +84,48 @@ export default function Index() {
   }
 
 
-  // const fetchFragrancesAnd = async () => {
-  //   try {
-  //     setError(null);
-  //     setLoading(true);
+  const fetchFragrancesAnd = async () => {
+    try {
+      setError(null);
+      setLoading(true);
 
-  //     const response = await fetch(`http://100.64.34.31:3000/api/fragrances/and?${}`);
-  //     const json = await response.json();
-  //     setNotes(json);
-  //   } catch (err: unknown) {
-  //     if (err instanceof Error) {
-  //       setError(err.message);
-  //       console.error("Error fetching fragrances", err.message);
-  //     }
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
+      const response = await fetch(`http://100.64.34.31:3000/api/fragrances/and?notes=${params}`);
+      const json = await response.json();
+      setFragrances(json);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+        console.error("Error fetching fragrances", err.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
     fetchFamilies();
     fetchAccords();
     fetchNotes();
   }, []);
+
+  useEffect(() => {
+    fetchFragrancesAnd();
+  }, [selected]);
+
+  const accordionSections = [
+    {
+      title: 'Families',
+      content: families,
+    },
+    {
+      title: 'Accords',
+      content: accords,
+    },
+    {
+      title: 'Notes',
+      content: notes
+    },
+  ];
 
   return (
     <View
@@ -104,10 +139,18 @@ export default function Index() {
       <View style={styles.headingContainer}>
         <Text style={{ textAlign: 'center' }}>Select notes below to search for matching fragrances.</Text>
       </View>
-      <ScrollView >
-        <Accordion title="Families" vals={families}></Accordion>
-        <Accordion title="Accords" vals={accords}></Accordion>
-        <Accordion title="Notes" vals={notes}></Accordion>
+      <ScrollView>
+        <ScrollableAccordion sections={accordionSections} handleSelect={handleSelectOption} handleDeselect={handleDeselectOption} />
+        <View style={{ borderWidth: 2, borderColor: 'black' }}>
+          {selected.map((item) => (
+            <Text>{item}</Text>
+          ))}
+        </View>
+        <View style={{ borderWidth: 2, borderColor: 'black' }}>
+          {fragrances.map((item) => (
+            <Text>{item}</Text>
+          ))}
+        </View>
       </ScrollView>
     </View >
   );

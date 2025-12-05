@@ -4,6 +4,10 @@ export const getFragrancesAnd = async (req, res) => {
     const notesString = req.query.notes;
 
     const requiredNotes = notesString.toLowerCase().split(',').map(note => note.trim()).filter(Boolean);
+    if (!requiredNotes) {
+        return res.status(400).send("Missing params");
+    }
+    console.log(requiredNotes);
 
     try {
         const andConditions = requiredNotes.map(noteName => ({
@@ -31,8 +35,8 @@ export const getFragrancesAnd = async (req, res) => {
                 },
             },
         });
-
-        res.json(fragrances);
+        const flat = fragrances.map(f => f.name);
+        res.json(flat);
     } catch (error) {
         console.error('Error during fragrance search:', error);
         res.status(500).json({ error: 'An error occurred.' });

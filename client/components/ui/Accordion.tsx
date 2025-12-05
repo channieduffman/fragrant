@@ -5,6 +5,8 @@ import { SelectableOption } from "./SelectableOption";
 type AccordionProps = {
     title: string,
     vals: string[],
+    handleSelect: any,
+    handleDeselect: any,
 }
 
 export default function Accordion(props: AccordionProps) {
@@ -67,7 +69,7 @@ export default function Accordion(props: AccordionProps) {
                     style={{ flexGrow: 0 }}
                 >
                     {props.vals.map((item, index) => (
-                        <SelectableOption name={item} />
+                        <SelectableOption name={item} handleSelect={props.handleSelect} handleDeselect={props.handleDeselect} />
                     ))}
                 </ScrollView>
             </Animated.View>

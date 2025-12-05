@@ -3,21 +3,23 @@ import { Text, TouchableOpacity, View, FlatList, StyleSheet, Touchable, Touchabl
 
 type OptionProps = {
     name: string,
+    handleSelect: any,
+    handleDeselect: any,
 }
 
 export function SelectableOption(props: OptionProps) {
 
-    const [isSelected, setIsSelected] = useState<boolean>();
+    const [isSelected, setIsSelected] = useState<boolean>(false);
 
     const handlePress = (item: string) => {
+        if (isSelected) {
+            props.handleDeselect(item);
+        } else {
+            props.handleSelect(item);
+        }
         setIsSelected(!isSelected);
         console.log("Pressed: ", item);
     }
-
-    // Initialize isSelected to false on mount
-    useEffect(() => {
-        setIsSelected(false);
-    }, []);
 
     return (
         <TouchableWithoutFeedback onPress={() => handlePress(props.name)}>
